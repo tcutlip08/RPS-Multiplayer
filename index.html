@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <head>
-    <title>Feelin' GIPHY?</title>
+    <title>Rock - Paper - Scissors</title>
     <link rel="stylesheet" href="assets\css\reset.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -16,12 +16,34 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.0.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
     <link rel="stylesheet" href="assets\css\style.css">
 </head>
 
-<body background="assets/images/RPS-Background.jpeg" style="background-size: cover;">
+<body background="assets/images/RPS-Background.jpeg">
     <div class="container">
         <div class="row">
+            <div class="col">
+                <h3>Username:&nbsp;<span id="displayUserName">Guest</span>&nbsp;Wins:&nbsp;<span id="disiplayWins">0</span>&nbsp;Losses:&nbsp;<span id="displayLosses">0</span></h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                Play
+                <div class="row">
+                    <div class="col">
+                        Sign In
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                Chat
+            </div>
         </div>
     </div>
 
