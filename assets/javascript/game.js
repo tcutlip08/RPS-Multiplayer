@@ -77,8 +77,6 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
 
         // Game Starts Here
 
-        console.log(firebase.auth().currentUser);
-
     } else {
         console.log("not logged in");
         $(".signIn").attr("style", "display: block");
@@ -111,7 +109,7 @@ $("#createRoom").on("click", function () {
     database.ref().push({
         CreateRoom: create
     });
-    console.log("create");
+    // console.log("create");
 
     $("#createOrJoin").val("");
 });
@@ -123,7 +121,7 @@ $("#joinRoom").on("click", function () {
     database.ref().push({
         JoinRoom: join
     });
-    console.log("join");
+    // console.log("join");
 
     $("#createOrJoin").val("");
 });
