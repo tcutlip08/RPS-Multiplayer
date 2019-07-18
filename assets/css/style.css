@@ -4,6 +4,16 @@ body{
     background-repeat: no-repeat;
 }
 
-#hey{
+.title{
     text-align: center;
+    background-color: #ddd;
+    border: 5px #ccc solid;
+}
+
+#submit{
+    margin: 5px 0 0 0;
+}
+
+#signOut{
+    margin: 5px;
 }

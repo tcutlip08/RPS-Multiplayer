@@ -22,19 +22,31 @@
 
 <body background="assets/images/RPS-Background.jpeg">
     <div class="container">
-        <div class="row">
-            <div class="col">
-                <h3>Username:&nbsp;<span id="displayUserName">Guest</span>&nbsp;Wins:&nbsp;<span id="disiplayWins">0</span>&nbsp;Losses:&nbsp;<span id="displayLosses">0</span></h3>
-            </div>
+        <div class="row title">
+            <h3 class="col">
+                Email:&nbsp;<span id="displayEmail">Sign In</span>
+            </h3>
+            <h3 class="col">
+                Wins:&nbsp;<span id="disiplayWins">0</span>
+            </h3>
+            <h3 class="col">
+                Losses:&nbsp;<span id="displayLosses">0</span>
+            </h3>
+            <button type="button" id="signOut" style="display: none;">Sign Out</button>
         </div>
         <div class="row">
             <div class="col-md-8">
-                Play
-                <div class="row">
+                <div class="row signIn">
                     <div class="col">
-                        Sign In
+                        <form class="a">
+                            Email<br><input type="text" name="email" id="email">&nbsp;<span id="displayError"></span><br>
+                            Password<br><input type="password" name="passWord" id="passWord"><br>
+                            <input type="submit" value="Sign In" id="signInBtn">
+                            <input type="submit" value="Sign Up" id="signUpBtn">
+                        </form>
                     </div>
                 </div>
+                Play
                 <div class="row">
                     <div class="col">
 

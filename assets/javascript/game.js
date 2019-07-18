@@ -12,20 +12,99 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 
+// const auth = firebase.auth();
+// auth.signInWithEmailAndPassword(email, pass);
+// auth.createUserWithEmailAndPassword(email, pass);
+// auth.onAuthStateChanged(firebaseUser => { });
 
-database.ref().on("value", function (snapshot) {
+$("#signInBtn").on("click", function () {
 
-    // database.ref().on("value", function (snapshot) {
-    //     $("#highest-bidder").text(snapshot.val().highestBidder);
-    //     $("#highest-price").text(snapshot.val().highestBid);
-    // });
+    event.preventDefault();
 
-}, function (errorObject) {
-    console.log("The read failed: " + errorObject.code);
+    const email = $("#email").val().trim();
+    const password = $("#passWord").val().trim();
+    const auth = firebase.auth();
+
+    const promise = auth.signInWithEmailAndPassword(email, password);
+    promise.catch(e => console.log(e.message));
+
+    $("#userName").val("");
+    $("#passWord").val("");
+
+    console.log("sign in");
 });
 
-$(document).ready(function () {
-    database.ref().set({
-        clickCount: 7
+$("#signUpBtn").on("click", function () {
+
+    event.preventDefault();
+
+    // TODO: Check For Real Email
+    const email = $("#email").val().trim();
+    const password = $("#passWord").val().trim();
+    const auth = firebase.auth();
+
+    const promise = auth.createUserWithEmailAndPassword(email, password);
+    promise.catch(e => {
+        console.log(e.message);
+        $("#displayError").text(e.message);
     });
+    // $("#displayError").text()
+
+    console.log("sign up");
 });
+
+firebase.auth().onAuthStateChanged(firebaseUser => {
+    if (firebaseUser) {
+        console.log(firebaseUser);
+        $("#signOut").attr("style", "display: block");
+        $(".signIn").attr("style", "display: none");
+        $("#displayEmail").text(firebaseUser.email);
+    } else {
+        console.log("not logged in");
+        $(".signIn").attr("style", "display: block");
+        $("#displayEmail").text("Sign In");
+    }
+})
+
+$("#signOut").on("click", function () {
+
+    firebase.auth().signOut();
+
+    $("#signOut").attr("style", "display: none");
+
+    console.log("sign out");
+});
+
+// firebase.database().ref().child('Profiles').child(user.uid).set({
+//     user
+// });
+
+// database.ref().on("value", function (snap) {
+
+//     console.log(snap.val());
+//     console.log(snap.val().length);
+
+//     // if (snap.val().username.includes(enteredEmail)) {
+//     //     // test for password
+//     //     console.log("woah");
+//     // }
+//     // else {
+//     //     database.ref().push({
+//     //         username: enteredEmail,
+//     //         password: enteredPassword
+//     //     });
+//     //     console.log("thats too bad");
+//     // }
+
+
+// }, function (errorObject) {
+//     console.log("The read failed: " + errorObject.code);
+// });
+
+
+
+// $(document).ready(function () {
+//     database.ref().set({
+//         clickCount: 7
+//     });
+// });
