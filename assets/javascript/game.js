@@ -11,6 +11,7 @@ const config = {
 firebase.initializeApp(config);
 
 var database = firebase.database();
+var user;
 
 // const auth = firebase.auth();
 // auth.signInWithEmailAndPassword(email, pass);
@@ -26,7 +27,14 @@ $("#signInBtn").on("click", function () {
     const auth = firebase.auth();
 
     const promise = auth.signInWithEmailAndPassword(email, password);
-    promise.catch(e => console.log(e.message));
+    $("#displayError").text("");
+    promise.catch(e => {
+        console.log(e.message);
+        promise.catch(e => {
+            console.log(e.message);
+            $("#displayError").text(e.message);
+        });
+    });
 
     $("#userName").val("");
     $("#passWord").val("");
@@ -44,6 +52,7 @@ $("#signUpBtn").on("click", function () {
     const auth = firebase.auth();
 
     const promise = auth.createUserWithEmailAndPassword(email, password);
+    $("#displayError").text("");
     promise.catch(e => {
         console.log(e.message);
         $("#displayError").text(e.message);
@@ -56,13 +65,24 @@ $("#signUpBtn").on("click", function () {
 firebase.auth().onAuthStateChanged(firebaseUser => {
     if (firebaseUser) {
         console.log(firebaseUser);
+        user = firebaseUser;
+
         $("#signOut").attr("style", "display: block");
         $(".signIn").attr("style", "display: none");
         $("#displayEmail").text(firebaseUser.email);
+
+        // Create/Join Room
+        $(".createOrJoinRoom").attr("style", "display: block;");
+        createOrJoinRoom();
+
+        // Game Starts Here
+
     } else {
         console.log("not logged in");
         $(".signIn").attr("style", "display: block");
         $("#displayEmail").text("Sign In");
+
+        $(".createOrJoinRoom").attr("style", "display: none;");
     }
 })
 
@@ -75,10 +95,29 @@ $("#signOut").on("click", function () {
     console.log("sign out");
 });
 
-// firebase.database().ref().child('Profiles').child(user.uid).set({
-//     user
-// });
+function createOrJoinRoom() {
+    console.log("hey");
+}
 
+$("#createRoom").on("click", function(){
+    event.preventDefault();
+
+    const create = $("#createOrJoin").val().trim();
+    database.ref().set({
+        CreateRoom: create
+    });
+    console.log("create");
+});
+
+$("#joinRoom").on("click", function(){
+    event.preventDefault();
+
+    const join = $("#createOrJoin").val().trim();
+    database.ref().set({
+        JoinRoom: join
+    });
+    console.log("join");
+});
 // database.ref().on("value", function (snap) {
 
 //     console.log(snap.val());
