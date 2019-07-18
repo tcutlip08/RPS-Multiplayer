@@ -77,12 +77,17 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
 
         // Game Starts Here
 
+        console.log(firebase.auth().currentUser);
+
     } else {
         console.log("not logged in");
         $(".signIn").attr("style", "display: block");
         $("#displayEmail").text("Sign In");
 
         $(".createOrJoinRoom").attr("style", "display: none;");
+
+        // $(".chatDiv").attr("style", "display: block");
+        // $(".chatDiv").attr("style", "display: none");
     }
 })
 
@@ -96,28 +101,48 @@ $("#signOut").on("click", function () {
 });
 
 function createOrJoinRoom() {
-    console.log("hey");
+    // console.log("hey");
 }
 
-$("#createRoom").on("click", function(){
+$("#createRoom").on("click", function () {
     event.preventDefault();
 
     const create = $("#createOrJoin").val().trim();
-    database.ref().set({
+    database.ref().push({
         CreateRoom: create
     });
     console.log("create");
+
+    $("#createOrJoin").val("");
 });
 
-$("#joinRoom").on("click", function(){
+$("#joinRoom").on("click", function () {
     event.preventDefault();
 
     const join = $("#createOrJoin").val().trim();
-    database.ref().set({
+    database.ref().push({
         JoinRoom: join
     });
     console.log("join");
+
+    $("#createOrJoin").val("");
 });
+
+$("#sendToChat").on("click", function(){
+    var message = $("#chatBoxMessage").val().trim();
+
+    database.ref().push({
+        message: message
+    });
+
+    $("#chatBoxMessage").val("");
+});
+
+database.ref().on("child_added", function (snap) {
+    $("#displayMessages").prepend(snap.val().message + " (Time Stamp)<br>");
+});
+
+
 // database.ref().on("value", function (snap) {
 
 //     console.log(snap.val());
